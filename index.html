@@ -10,23 +10,81 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
     <!-- Material Design for Bootstrap CSS -->
+
+
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+  
+    <link rel="stylesheet" type="text/css" href="/style.css">
+  
   </head>
-  <body>
+<body>
+<div class = 'login'>
   	<center>
-	  	<h1 class="display-3">Create a room or join one!</h1>
-		<p href=""><button type="button" class="btn btn-outline-primary">Create a room</button></p>
-		<a href="/room"><button type="button" class="btn btn-outline-success">Join a room</button></a>
-		<p3> <input type="text" class="col-sm-3 col-sm-offset-3" placeholder="Insert Username here" aria-describedby="basic-addon1"></p3> <!-- Add so if no URL or invaild URL, alert the user -->
+  	 <h1 class="display-3">Create a room or join one!</h1>
+	   <button type="button" class="btn btn-outline-success form-control" id="roomButton">Join a room</button>
+		<p3> <input type="text" class="col-sm-3 col-sm-offset-3 form-control" id="userName" placeholder="Insert Username here" aria-describedby="basic-addon1"></p3> <!-- Add so if no URL or invaild URL, alert the user -->
 	</center>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script>
-    function test(){
-    	var x = document.getElementById("myURL").value;
-    	return x;
-	}
+</div>
+<div class = 'room'>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col-6">
+        <h1>$</h1>  
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+  <center>
+    <div class="col-sm-4 col-sm-offset-3" aria-describedby="basic-addon1">
+        <input type="email" class="form-control" name="email" placeholder="Place amount">
+        <button type="button" class="btn btn-outline-primary">Enter amount</button>
+    </div>
+    </center>
+  </div>
+</div>
+</body>
+  
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(document).ready(()=> { 
+      $('body').bootstrapMaterialDesign(); 
+      
+      let roomButton = $('#roomButton');
+      const socket = io.connect('http://localhost:3000');
+
+      roomButton.click(()=>{
+        if( !$('#userName').val() == ''){
+          socket.emit('add user', $('#userName').val());
+          socket.on('userExists', (data)=>{
+            $('.room').hide();
+            $('.login').show();
+            console.log('User already exists');
+          });
+          $('.room').show();
+          $('.login').hide();
+
+        }
+      });
+      socket.on('user joined')
+    });
 	</script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
   </body>
 </html>
