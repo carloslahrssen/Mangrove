@@ -1,3 +1,35 @@
 .room{
 	display:none;
 }
+
+.display-3{
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 700px;
+    height: 800px;
+    color: 	#7FFF00;
+}
+ p {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 1400px;
+    height: 200px;
+ }
+#enterMoney{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 1400px;
+    height: 200px;
+ }
